@@ -10,7 +10,7 @@ export default function Meals() {
     isLoading,
     error,
   } = useHttp(
-    "https://food-order-app-three-beta.vercel.app/",
+    "https://food-order-app-three-beta.vercel.app/meals",
     requestConfig,
     []
   );
