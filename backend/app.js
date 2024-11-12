@@ -88,9 +88,20 @@ app.use((req, res, next) => {
   next();
 });
 
+// app.get("/meals", async (req, res) => {
+//   const meals = await fs.readFile("./data/available-meals.json", "utf8");
+//   res.json(JSON.parse(meals));
+// });
 app.get("/meals", async (req, res) => {
-  const meals = await fs.readFile("./data/available-meals.json", "utf8");
-  res.json(JSON.parse(meals));
+  try {
+    const meals = await fs.readFile("./data/available-meals.json", "utf8");
+    console.log("Raw data:", meals); // Log the raw data
+    const parsedMeals = JSON.parse(meals);
+    res.json(parsedMeals);
+  } catch (error) {
+    console.error("Error reading or parsing JSON file:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.post("/orders", async (req, res) => {
